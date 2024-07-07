@@ -1,7 +1,6 @@
 const express = require('express');
+const getJob = require('../openai/job')
 const router = express.Router();
-const askJob = require('/src/openai/askJob')
-
 // Mock function to validate reservation
 const validateReservation = (data) => {
     // Here you can add actual validation logic
@@ -9,6 +8,7 @@ const validateReservation = (data) => {
 };
 
 router.post('/', (req, res) => {
+    console.log(req)
     const { message, userName } = req.body;
 
     // Validate
@@ -17,8 +17,7 @@ router.post('/', (req, res) => {
     }
 
     // Ask Open AI
-    const job = askJob(message)
-
+    const job = getJob(message)
     console.log(job);
 });
 
