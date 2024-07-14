@@ -1,5 +1,5 @@
 const express = require('express');
-const getJob = require('../openai/job')
+const getJob = require('../api/job')
 const router = express.Router();
 // Mock function to validate reservation
 const validateReservation = (data) => {
