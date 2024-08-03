@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const chat = require('../src/routes/chat');
 const planService = require('../src/services/PlanService')
 const youtube = require('../src/api/youtube');
+const mongoDB = require('../src/config/mongoDB')
 jest.setTimeout(1000000);
 // Express 앱 설정
 const app = express();
@@ -30,6 +31,7 @@ describe('POST /chat', () => {
 describe('youtube', () => {
     // Open AI Health Check
     it('youtube', async () => {
+        await mongoDB();
         await planService.createPlan();
     });
 });

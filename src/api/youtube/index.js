@@ -17,8 +17,6 @@ const question = (prompt) => {
 module.exports = async (url) => {
     const rawData = await YoutubeTranscript.fetchTranscript(url);
     const script = rawData.map(item => item.text).join(' ');
-    console.log(script)
     const summary = await gpt(question(script));
-    console.log(summary)
     return JSON.parse(summary);
 };
