@@ -3,15 +3,16 @@ const fs = require('fs');
 const {PassThrough} = require('stream');
 require('dotenv').config();
 
-const model = 'llama3:8b';
+const model = process.env.LLAMA3_MODEL;
 const askPath = `${process.env.LLAMA3_8B_URL}/api/generate`;
 const send = async (prompt) => {
     try {
-        return await axios.post(askPath, {
+        const result = await axios.post(askPath, {
             model: model,
             prompt: prompt,
             stream: false
         });
+        return result.data.response;
     } catch (error) {
         console.error('Error occurred:', error.message);
     }

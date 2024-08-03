@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const aiApi = require('../api/ai')
+const aiApi = require('../api/gpt')
 // Mock function to validate reservation
 const isMessage = (data) => {
     // Here you can add actual validation logic
