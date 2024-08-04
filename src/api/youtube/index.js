@@ -6,9 +6,9 @@ const gpt = require('../gpt')
 const question = (prompt) => {
     return `Here is the video script: ${prompt} Provide the information in the following JSON Array format:` +
         "[" +
-        " { \"name : \"place name\", \"description : \"place description\" , \"feature\" : \"place feature\"} \"}," +
-        " { \"name : \"place name\", \"description : \"place description\" , \"feature\" : \"place feature\"} \"}," +
-        " { \"name : \"place name\", \"description : \"place description\" , \"feature\" : \"place feature\"} \"}," +
+        " { \"place : \"place name\", \"description : \"place description\" , \"feature\" : \"place feature\"} \"}," +
+        " { \"place : \"place name\", \"description : \"place description\" , \"feature\" : \"place feature\"} \"}," +
+        " { \"place : \"place name\", \"description : \"place description\" , \"feature\" : \"place feature\"} \"}," +
         " ..." +
         "]" +
         "I'm going to parse this Json array data as it is, So DO NOT ADD ANY TEXT OUTSIDE OF THE JSON RESPONSE. DO NOT ADD NOTE OR INTRODUCTION OUTSIDE OF THE JSON RESPONSE. USE THE JSON";

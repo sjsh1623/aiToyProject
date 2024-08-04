@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const placeModel = require('../models/PlaceModel');
+const place = require('../models/place');
 const youtube = require('../api/youtube');
 
 const createPlan = async (location = {}) => {
@@ -10,8 +10,7 @@ const createPlan = async (location = {}) => {
 
     try {
         for (const ytPlace of ytPlaces) {
-            const place = new placeModel(ytPlace);
-            await place.save();
+            await place.create(ytPlace);
         }
     } catch (error) {
         throw error;

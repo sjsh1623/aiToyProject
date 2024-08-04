@@ -13,8 +13,7 @@ const placeSchema = new mongoose.Schema({
   },
   feature: {
     type: String,
-    required: true,
-    unique: true,
+    required: false,
   },
   nation: {
     type: String,
@@ -33,6 +32,5 @@ const placeSchema = new mongoose.Schema({
   },
 });
 
-const Plan = mongoose.model('Plan', placeSchema);
-
-module.exports = Plan;
+const place = mongoose.model('place', placeSchema);
+module.exports = place;
