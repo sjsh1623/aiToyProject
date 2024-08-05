@@ -18,18 +18,41 @@ const placeSchema = new mongoose.Schema({
   nation: {
     type: String,
     required: true,
-    unique: true,
   },
   city: {
     type: String,
     required: true,
-    unique: true,
   },
   url: {
     type: String,
     required: true,
-    unique: true,
   },
+  address: {
+    type: String,
+    required: false,
+  },
+  category: {
+    type: String,
+    required: false,
+  },
+  coordinates: {
+    latitude: {
+      type: Number,
+      required: false
+    },
+    longitude: {
+      type: Number,
+      required: false
+    }
+  },
+  created_at: {
+    type: Date,
+    default: Date.now
+  },
+  updated_at: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 const place = mongoose.model('place', placeSchema);

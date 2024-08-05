@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const place = require('../models/place');
 const youtube = require('../api/youtube');
 
