@@ -6,6 +6,7 @@ const chat = require('../src/routes/chat');
 const planService = require('../src/services/PlanService')
 const youtube = require('../src/api/youtube');
 const mongoDB = require('../src/config/mongoDB')
+const axios = require("axios");
 jest.setTimeout(1000000);
 // Express 앱 설정
 const app = express();
@@ -35,3 +36,4 @@ describe('youtube', () => {
         await planService.createPlan();
     });
 });
+

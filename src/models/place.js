@@ -11,7 +11,7 @@ const placeSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  feature: {
+  type: {
     type: String,
     required: false,
   },

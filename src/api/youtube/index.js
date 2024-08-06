@@ -6,9 +6,9 @@ const gpt = require('../gpt')
 const placeQuestion = (prompt) => {
 	return `Here is the video script: ${prompt} Provide the information in the following JSON Array format:` +
 		"[" +
-		" { \"place : \"place name\", \"description : \"place description\" , \"feature\" : \"place feature\"} \"}," +
-		" { \"place : \"place name\", \"description : \"place description\" , \"feature\" : \"place feature\"} \"}," +
-		" { \"place : \"place name\", \"description : \"place description\" , \"feature\" : \"place feature\"} \"}," +
+		" { \"place : \"place name\", \"description : \"place description\" , \"type\" : \"place type (ex. park, restaurant, amusement park, store) \"} \"}," +
+		" { \"place : \"place name\", \"description : \"place description\" , \"type\" : \"place type (ex. park, restaurant, amusement park, store) \"} \"}," +
+		" { \"place : \"place name\", \"description : \"place description\" , \"type\" : \"place type (ex. park, restaurant, amusement park, store) \"} \"}," +
 		" ..." +
 		"]" +
 		"I'm going to parse this Json array data as it is, So DO NOT ADD ANY TEXT OUTSIDE OF THE JSON RESPONSE. DO NOT ADD NOTE OR INTRODUCTION OUTSIDE OF THE JSON RESPONSE. USE THE JSON";
@@ -24,6 +24,5 @@ module.exports = async (url) => {
 	const rawData = await YoutubeTranscript.fetchTranscript(url);
 	const script = rawData.map(item => item.text).join(' ');
 	const summary = await gpt(placeQuestion(script));
-	const result = await gpt(address(summary), false, 'gemini')
-	return JSON.parse(result);
+	return JSON.parse(summary);
 };
