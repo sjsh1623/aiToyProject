@@ -1,20 +1,19 @@
 require('dotenv').config();
 
 const ask = async (query) => {
-	const googleMapApiUrl = "https://maps.googleapis.com/maps/api/place/textsearch/json";
+	const googleMapApiUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?key=${process.env.GOOGLE_API_KEY}`;
 	const axios = require("axios");
 	try {
-		const result = await axios.post(googleMapApiUrl, {
-			textQuery: query,
-			key : process.env.GOOGLE_API_KEY
+		const api = await axios.post(googleMapApiUrl, {
+			query: query,
 		});
-		return result
+		return api.data.results
 	} catch (error) {
 		console.error('Error occurred:', error.message);
 	}
 }
 
 module.exports = async (place, city) => {
-	const query = `${place} ${city}`
+	const query = `${place} at ${city}`
 	return await ask(query)
 }

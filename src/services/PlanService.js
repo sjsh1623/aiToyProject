@@ -19,7 +19,7 @@ const createPlan = async (location = {}) => {
 const addInfo = async (places, info) => {
     const {nation, city, url} = info;
     for (const element of places) {
-        element.address = await googlePlace(element.place, places.city);
+        element.address = await googlePlace(element.place, city);
         element.city = city;
         element.nation = nation;
         element.url = url;
