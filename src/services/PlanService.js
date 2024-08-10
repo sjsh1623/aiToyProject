@@ -1,32 +1,55 @@
-const place = require('../models/place');
+const placeDB = require('../models/place');
 const youtube = require('../api/youtube');
-const googlePlace = require('../api/google/place');
+const googleMapTextSearch = require('../api/google/mapTextSearch');
 
 const createPlan = async (location = {}) => {
-    const {nation, city} = location;
-    const url = 'ZHci71eDC5o'
-    const youTubeData = await youtube(url);
-    const ytPlaces = await addInfo(youTubeData, {city: 'seoul', nation: 'korea', url: url});
-    try {
-        for (const ytPlace of ytPlaces) {
-            await place.create(ytPlace);
-        }
-    } catch (error) {
-        throw error;
-    }
+	const {nation, city} = location;
+	const url = 'BwUx4iAWiIo'
+	const places = await getPlacesFromYoutube(nation, city, url);
 }
 
-const addInfo = async (places, info) => {
-    const {nation, city, url} = info;
-    for (const element of places) {
-        element.address = await googlePlace(element.place, city);
-        element.city = city;
-        element.nation = nation;
-        element.url = url;
-    }
-    return places;
+const getPlacesFromYoutube = async (nation, city, url) => {
+	const youTubeData = await youtube(url); // Get Youtube prompt
+	const placesFromYoutube = await addInformationUsingGoogleMapApi(youTubeData, nation, city, url); // Get fixed Data
+	savePlaces(placesFromYoutube) // Save to Database
+	return placesFromYoutube;
+}
+
+const addInformationUsingGoogleMapApi = async (youTubeData, nation, city, url) => {
+	return await Promise.all(
+		youTubeData.map(async (element) => {
+			const googlePlaceInfo = await googleMapTextSearch(element.place, nation, city);
+			return {
+				...element,
+				platform: 'youtube',
+				place: googlePlaceInfo.name,
+				address: googlePlaceInfo.formatted_address,
+				city: city,
+				nation: nation,
+				url: url,
+				rate: googlePlaceInfo.rating,
+				rate_count: googlePlaceInfo.user_ratings_total,
+				place_id: googlePlaceInfo.place_id,
+				types: googlePlaceInfo.types,
+				coordinates: {
+					latitude: googlePlaceInfo.location.lat,
+					longitude: googlePlaceInfo.location.lng
+				}
+			};
+		})
+	);
 };
 
+const savePlaces = (placesFromYoutube) => {
+	try {
+		for (const placeFromApi of placesFromYoutube) {
+			placeDB.create(placeFromApi);
+		}
+	} catch (error) {
+		throw error;
+	}
+}
+
 module.exports = {
-    createPlan,
+	createPlan,
 }

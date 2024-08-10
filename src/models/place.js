@@ -31,10 +31,6 @@ const placeSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-  category: {
-    type: String,
-    required: false,
-  },
   coordinates: {
     latitude: {
       type: Number,
@@ -44,6 +40,22 @@ const placeSchema = new mongoose.Schema({
       type: Number,
       required: false
     }
+  },
+  rate: {
+    type: Number,
+    required: false
+  },
+  rate_count : {
+    type: Number,
+    required: false
+  },
+  types : {
+    type: [String],
+    required: false,
+  },
+  place_id: {
+    type: String,
+    required: false,
   },
   created_at: {
     type: Date,
