@@ -1,6 +1,6 @@
-const placeDB = require('../models/place');
+const placeDB = require('../models/Place');
 const youtube = require('../api/youtube');
-const googleMapTextSearch = require('../api/google/mapTextSearch');
+const googleMapTextSearch = require('../api/google/MapTextSearch');
 
 const createPlan = async (location = {}) => {
 	const {nation, city} = location;
