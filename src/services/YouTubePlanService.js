@@ -6,7 +6,6 @@ const createPlan = async (location = {}) => {
 	const {nation, city} = location;
 	const url = 'BwUx4iAWiIo'
 	const places = await getPlacesFromYoutube('korea', 'seoul', url);
-	console.log(places)
 }
 
 const getPlacesFromYoutube = async (nation, city, url) => {
@@ -40,7 +39,6 @@ const addInformationUsingGoogleMapApi = async (youTubeData, nation, city, url) =
 			}));
 		})
 	);
-
 	return newDataArray.flat().filter(item => item !== null);
 };
 
